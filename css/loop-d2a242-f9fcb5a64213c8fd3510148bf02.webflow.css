@@ -1,0 +1,236 @@
+.body {
+  border-radius: 10px;
+  background-image: url('../images/maxresdefault.jpg');
+  background-position: 50% 50%;
+  background-size: contain;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+.div-block {
+  display: block;
+  width: 75%;
+  height: 210%;
+  margin-top: 144px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-bottom: 3px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  border-radius: 25px;
+}
+
+.row {
+  display: block;
+  margin-top: 83px;
+}
+
+.image {
+  display: block;
+  width: 30%;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+.text-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 5px;
+  font-size: 17px;
+  text-align: center;
+}
+
+.link {
+  color: #00b6e1;
+}
+
+.form {
+  padding-top: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 10px;
+  background-color: #48a76e;
+}
+
+.text-block-2 {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+.link-2 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  color: #00b6e1;
+  font-size: 17px;
+  text-decoration: none;
+}
+
+.column {
+  position: static;
+  height: 210%;
+  margin-top: 129px;
+}
+
+.body-2 {
+  background-image: url('../images/background.jpg');
+  background-position: 0px 0px;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.regdiv {
+  display: block;
+  width: 75%;
+  height: 280%;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 25px;
+  background-image: -webkit-linear-gradient(270deg, #fff, #fff);
+  background-image: linear-gradient(180deg, #fff, #fff);
+}
+
+.navbar {
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+}
+
+.section {
+  width: 7%;
+  height: 100%;
+  background-image: -webkit-linear-gradient(270deg, #00b6e1, #00b6e1);
+  background-image: linear-gradient(180deg, #00b6e1, #00b6e1);
+}
+
+.navbar-2 {
+  height: 100px;
+}
+
+.image-2 {
+  position: static;
+  display: block;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: 10px;
+  padding-right: 0px;
+  padding-left: 0px;
+  clear: none;
+  text-align: center;
+}
+
+.section-2 {
+  width: 93%;
+  height: 50px;
+  float: right;
+  clear: both;
+  background-image: -webkit-linear-gradient(270deg, #00b6e1, #00b6e1);
+  background-image: linear-gradient(180deg, #00b6e1, #00b6e1);
+}
+
+.brand {
+  height: 10px;
+}
+
+.nav-menu {
+  margin-top: 81px;
+  margin-bottom: 0px;
+}
+
+.container {
+  margin-top: 47px;
+}
+
+.container-2 {
+  position: static;
+  display: inline;
+  height: 500%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 5px;
+}
+
+.link-3 {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-top: 2px solid #fff;
+  color: #fff;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.button {
+  margin-top: 5px;
+  margin-right: 5px;
+  float: right;
+  border-radius: 25px;
+  background-image: -webkit-linear-gradient(270deg, #fff, #fff);
+  background-image: linear-gradient(180deg, #fff, #fff);
+  color: #00b6e1;
+  text-decoration: none;
+}
+
+.body-3 {
+  color: #00b6e1;
+  text-decoration: none;
+}
+
+.text-block-3 {
+  padding-top: 15px;
+  padding-left: 10px;
+  color: #fff;
+  font-size: 45px;
+}
+
+.container-3 {
+  display: block;
+}
+
+.div-block-2 {
+  position: relative;
+  width: 93%;
+  height: 100%;
+  min-height: 100%;
+  float: right;
+  clear: both;
+}
+
+.section-3 {
+  position: fixed;
+  top: 50px;
+  right: 0px;
+  width: 93%;
+  height: 100px;
+  float: right;
+  clear: both;
+}
+
+.heading {
+  padding-left: 15px;
+}
