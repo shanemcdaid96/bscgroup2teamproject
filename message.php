@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-
-<head>
-<script type="text/javascript" src="table.js"></script>
-</head>
-
 <?php
 
 $connection = mysqli_connect("92.222.96.254","oliver","Opert213");
@@ -13,7 +8,7 @@ mysqli_select_db($connection,"email");
 
 print('<table border=1>');
 
-$result = mysqli_query($connection, "SELECT * FROM emails ");
+$result = mysqli_query($connection, "SELECT * FROM emails Where SubjectID=".$_GET['SubjectID']."");
 
 	print('<tr>');
 	
@@ -37,7 +32,7 @@ $result = mysqli_query($connection, "SELECT * FROM emails ");
 	print('<tr>');
 
 	print('<td>');
-	print('<a href="message.php?SubjectID='.$row['SubjectID'].'">');	
+	print('<a href="">');	
   	print($row['SubjectID']);
 	print('</a>');
   	print('</td>');
@@ -48,7 +43,7 @@ $result = mysqli_query($connection, "SELECT * FROM emails ");
 	print($row['Date']);
   	print('</td>');
   	print('<td>');
-	print(substr($row['Message'], 0 , 50));
+	print($row['Message']);
   	print('</td>');
 		
 	print ('</tr>');
@@ -58,6 +53,7 @@ mysqli_close($connection);
 
 print('</table>');
 ?>
+
+
 </body>
 </html>
-
