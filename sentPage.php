@@ -56,41 +56,23 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 
 <div class="container-fluid">
     <div class="row row-offcanvas row-offcanvas-left">
-       <div class="col-xs-2 col-sm-1 sidebar-offcanvas" id="sidebar" role="navigation"> 
+        <div class="col-xs-2 col-sm-1 sidebar-offcanvas" id="sidebar" role="navigation">
             <div class="sidebar-nav">
                 <ul class="nav">
 
                     
-                    <li><a href="#"><i class="fas fa-inbox"></i> Inbox</a></li>
-                    <li><a href="sentPage.php"><i class="fas fa-share-square"></i> Sent</a></li>
+                    <li><a href="loggedin.php"><i class="fas fa-inbox"></i> Inbox</a></li>
+                    <li><a href="#"><i class="fas fa-share-square"></i> Sent</a></li>
                    <!--<li><a href="#">Inbox</a></li>-->
                     
                 </ul>
-            </div>            <!--/.well -->
+            </div>
+            <!--/.well -->
         </div>
         <!--/span-->
 
-        <div class="inboxMessages">
-
-<script type="text/javascript">
-    function custom_echo($x, $length)
-{
-  if(strlen($x)<=$length)
-  {
-    echo $x;
-  }
-  else
-  {
-    $y=substr($x,0,$length) . '...';
-    echo $y;
-  }
-}
-</script>
-
+        <div class="SentMessages">
 <?php
-
-
-
 
 $connection = mysqli_connect("92.222.96.254","oliver","Opert213");
 mysqli_select_db($connection,"email");
@@ -104,17 +86,17 @@ $resultID = mysqli_query($connection,"SELECT id FROM users WHERE username Like '
 
 print('<table border=1>');
 
-$result = mysqli_query($connection, "SELECT * FROM emails Where ReceiverID=".$id."");
+$result = mysqli_query($connection, "SELECT * FROM emails Where SenderID=".$id."");
 
 //echo $_SESSION['username'];
 
     print('<tr>');
     
-    //print('<th>');
+   // print('<th>');
     //print("SubjectID");
     //print('</th>');
-     print('<th>');
-    print("From");
+    print('<th>');
+    print("To");
     print('</th>');
     print('<th>');
     print("Subject");
@@ -130,16 +112,15 @@ $result = mysqli_query($connection, "SELECT * FROM emails Where ReceiverID=".$id
     
     while($row=mysqli_fetch_array($result)){
     
-
     print('<tr>');
-    print('<a href="">');
+
     //print('<td>');
     //print('<a href="">');   
     //print($row['SubjectID']);
     //print('</a>');
     //print('</td>');
-     print('<td>');
-    print($row['SenderID']);
+    print('<td>');
+    print($row['ReceiverID']);
     print('</td>');
     print('<td>');
     print($row['Subject']);
@@ -148,9 +129,10 @@ $result = mysqli_query($connection, "SELECT * FROM emails Where ReceiverID=".$id
     print($row['Date']);
     print('</td>');
     print('<td>');
-   print substr($row['Message'],0,150);
+     print substr($row['Message'],0,150);
     print('</td>');
-    print('</a>');
+    
+        
     print ('</tr>');
   }
 
