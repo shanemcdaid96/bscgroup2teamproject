@@ -13,7 +13,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 
 <head>
   <meta charset="UTF-8">
-  <title>Bootstrap Top navbar and Sidebar</title>
+  <title>Bsafe Email - Inbox</title>
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -41,7 +41,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 
-                <li><a href="#contact"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="forget.php"><i class="fas fa-cog"></i> Settings</a></li>
                 <li><a href="Logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
 
 
@@ -59,9 +59,9 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
        <div class="col-xs-2 col-sm-1 sidebar-offcanvas" id="sidebar" role="navigation"> 
             <div class="sidebar-nav">
                 <ul class="nav">
-
+<li><a href="writeEmail.php"><i class="fas fa-pencil-alt"></i> Compose</a></li>
                     
-                    <li><a href="#"><i class="fas fa-inbox"></i> Inbox</a></li>
+                    <li><a href=#><i class="fas fa-inbox"></i> Inbox</a></li>
                     <li><a href="sentPage.php"><i class="fas fa-share-square"></i> Sent</a></li>
                    <!--<li><a href="#">Inbox</a></li>-->
                     
@@ -138,8 +138,10 @@ $result = mysqli_query($connection, "SELECT * FROM emails Where ReceiverID=".$id
     //print($row['SubjectID']);
     //print('</a>');
     //print('</td>');
+    $result2 = mysqli_query($connection, "SELECT username FROM users Where id=".$row['SenderID']."");
+    $row2=mysqli_fetch_array($result2);
      print('<td>');
-    print($row['SenderID']);
+    print($row2['username']);
     print('</td>');
     print('<td>');
     print($row['Subject']);
