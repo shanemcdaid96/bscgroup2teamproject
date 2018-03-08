@@ -1,15 +1,11 @@
-<!-- Errors when loggin in with invalid PW
- -->
-
-
-
-
-
-
-
 <?php
 // Include config file
 require_once 'Databaseinfo.php';
+
+// if(isset($_SESSION['username']) || empty($_SESSION['username'])){
+//   header("location: loggedin.php");
+//   exit;
+// }
  
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -42,7 +38,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_bind_param($stmt, "s", $param_username);
             
             // Set parameters
-            $param_username = $username;
+            $param_username = $username . "@bsafe-email.com";
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -58,8 +54,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             /* Password is correct, so start a new session and
                             save the username to the session */
                             session_start();
-                            $_SESSION['username'] = $username;      
-                            header("location: welcome.php");
+                            $_SESSION['username'] = $username;  
+                            $_SESSION['id'] = $id;  
+                            $_SESSION['name'] = $name;  
+                            header("location: loggedin.php");
                         } else{
                             // Display an error message if password is not valid
                             $password_err = 'The password you entered was not valid.';
@@ -109,13 +107,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="w-form">
           <form id="email-form" name="email-form" data-name="Email Form" class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-            <input type="text" class="w-input" maxlength="256" name="username"  placeholder="Email address" id="email" required="" value="<?php echo $username; ?>">
+            <input type="text" class="w-input-email" maxlength="256" name="username"  placeholder="Username" id="email" required="" value="<?php echo $username; ?>">
+            <input class="w-input-email"  placeholder="@bsafe-email.com" readonly>
 
             <input type="password" class="w-input" maxlength="256" name="password" data-name="password" placeholder="Password" id="password" required="">
 
             <input type="submit" value="Login" data-wait="Please wait..." class="submit-button w-button">
 
-            <p style="text-align:center">Dont have an account?<a style="text-align:center" href="register.php">Reigster</a></p>
+            <p style="text-align:center">Dont have an account?<a style="text-align:center" href="register.php">Register</a></p>
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>"></div>
 
             <center><button id="myBtn" >Forgot Password</button></center>
