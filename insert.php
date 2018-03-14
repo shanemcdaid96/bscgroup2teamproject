@@ -17,11 +17,7 @@ if(isset($_POST["submit"])) {
     }
 }
 
-// Check if file already exists
-if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
-}
+
 
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 500000) {
@@ -35,17 +31,7 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
 }
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-} else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
-}
+
 //Connecting to sql db.
 session_start();
 $connect = mysqli_connect("92.222.96.254","oliver","Opert213","email");
@@ -55,7 +41,9 @@ $jfeta = mysqli_fetch_assoc($resultID);
 $id = $jfeta['id'];
 $_SESSION['id'] = $id;
 
-$resultID = mysqli_query($connect,"SELECT id FROM users WHERE username Like '".$_POST['receiver']."'"); 
+$param_username = $_POST['receiver'] . "@bsafe-email.com";
+
+$resultID = mysqli_query($connect,"SELECT id FROM users WHERE username Like '".$param_username."'"); 
 $jfeta2 = mysqli_fetch_assoc($resultID);
 $receiverid = $jfeta2['id'];
 
@@ -66,12 +54,41 @@ $Message=$_POST['message'];
 
  $currentDate=date("Y-m-d");
 
+ $banned = array('poo', 'fuck'); // Add more
+//foreach ($banned as $word):
+ // if (strpos($Message, $word) !== false) die('Contains banned word');
+ //   else
+ //   mysqli_query($connect,"INSERT INTO emails (Subject, Message,Date,ReceiverID,SenderID)
+ // VALUES ('$Subject','$Message','$currentDate','$receiverid','$id')");
+//endforeach;
+  if ($uploadOk == 0) {
+    echo "Sorry, your file was not uploaded.";
+    mysqli_query($connect,"INSERT INTO emails (Subject, Message,Date,ReceiverID,SenderID)
+    VALUES ('$Subject','$Message','$currentDate','$receiverid','$id')");
+
+// if everything is ok, try to upload file
+} else {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+        mysqli_query($connect,"INSERT INTO emails (Subject, Message,Date,ReceiverID,SenderID)
+         VALUES ('$Subject','$Message','$currentDate','$receiverid','$id')");
+
+         $idemail=mysqli_insert_id($connect); 
+
+     mysqli_query($connect,"INSERT INTO attachments (Filename,IDemail)
+    VALUES ('$Filename','$idemail')") ;
+
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+}
 
 
-mysqli_query($connect,"INSERT INTO emails (Subject, Message,Date,ReceiverID,SenderID)
-VALUES ('$Subject','$Message','$currentDate','$receiverid','$id')");
 
-  mysqli_query($connect,"INSERT INTO attachments (Filename)
-    VALUES ('$Filename')") ;
+
+
+
+
+
 
 ?>
