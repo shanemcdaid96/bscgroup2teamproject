@@ -81,7 +81,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
         </div>
         <!--/span-->
 
-        <div class="SettingsPage">
+        <div class="ProfilePic">
 
 <script type="text/javascript">
     function custom_echo($x, $length)
@@ -98,9 +98,27 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 }
 </script>
 
-<a href="CustomizeJS.html"><h3> Change Profile Image</h3></a>
-<a href="CustomizeBgJS.html"><h3> Change Background Image</h3></a>
-<a href="PasswordReset.html"><h3> Change Password</h3></a>
+<h2>Select Background Picture</h2>
+<form class="form-inline" role="form" action="customizeBG.php" method="post" enctype="multipart/form-data">
+   <div class="form-group">
+     <input type="radio" name="bgpicture" value="bg-1.jpg" class="form-control form-control-inline"><img src="BackgroundImages/bg-1.jpg" style="width:50px; height:50px;""><br><br>
+   </div>
+
+      <div class="form-group">
+         <input type="radio" name="bgpicture" value="bg-2.jpg" class="form-control form-control-inline"><img src="BackgroundImages/bg-2.jpg" style="width:50px; height:50px;""><br><br>
+           </div>
+
+         <div class="form-group">
+            <input type="radio" name="bgpicture" value="bg-3.jpg" class="form-control form-control-inline"><img src="BackgroundImages/bg-3.jpg" style="width:50px; height:50px;""><br><br>
+   </div>
+
+
+         
+
+<input type="submit" value="Submit" name="submit">
+
+</form>
+
 
 
 
