@@ -2,10 +2,28 @@
 
 body {
   padding-top: 50px;
+  
+}
+
+th{
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+td{
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 footer {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+#settings{
+  margin-left: 200px;
 }
 
 /*
@@ -27,30 +45,91 @@ footer {
   }
 
   .row-offcanvas-left.active {
-    left: 10%;
+    left: 50%;
+
   }
 
   .sidebar-offcanvas {
     position: absolute;
     top: 0;
-    width: 10%;
+    width: 75px !important;
     margin-left: 12px;
+
   }
 }
 
 #sidebar {
     padding:15px;
     margin-top:10px;
+    background-image: url("http://www.closetomyheartpreschool.com/images/bg-1.jpg")!important;
+    color: black !important;
 
+
+}
+.form-control-inline {
+   width: auto !important;
+   float:left !important;
+   margin-right: 5px !important;
+    display: block !important;
 }
 
 .inboxMessages{
-  margin-top: 25px !important;
-  margin-left: -50px !important;
+  margin-top: 0px !important;
+  margin-left: -40px !important;
 }
 
+.SettingsPage h3{
+  margin-top: 10px !important;
+  margin-left: 150px !important;
+}
+
+.ProfilePic form{
+   margin-left: 160px !important;
+  
+
+}
+
+.ProfilePic h2{
+   margin-left: 160px !important;
+}
 .SentMessages{
-    margin-top: 25px !important;
+    margin-top: 0px !important;
   margin-left: -50px !important;
   margin-right: 50px !important;
+}
+
+
+.PasswordPage {
+  padding-left: 150px !important;
+}
+.PasswordPage input{
+  padding-left: 50px !important;
+}
+
+.navbar-default{
+  background-image: url();
+}
+.navbar-default a{
+  color: black !important;
+}
+.navbar{
+  height: 50px !important;
+}
+
+.sidebar-nav a{
+  color: black !important;
+
+}
+
+.profilePicIcon{
+  float: right !important;
+  display: initial !important;
+}
+.logoutBtn{
+  float: right !important;
+  display: block !important;
+}
+.navbar-nav{
+    float: right !important;
+  display: block !important;
 }
