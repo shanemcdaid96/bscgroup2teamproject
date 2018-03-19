@@ -37,6 +37,7 @@ footer {
     -moz-transition: all 0.25s ease-out;
     transition: all 0.25s ease-out;
     background:#ecf0f1;
+
   }
 
   .row-offcanvas-left
@@ -133,3 +134,10 @@ footer {
     float: right !important;
   display: block !important;
 }
+
+
+
+/*.navbar{
+      background-image: url("http://www.closetomyheartpreschool.com/images/bg-1.jpg")!important;
+
+}*/
