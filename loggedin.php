@@ -2,12 +2,28 @@
 // Initialize the session
 session_start();
  
+$connection = mysqli_connect("92.222.96.254","oliver","Opert213");
+mysqli_select_db($connection,"email");
+
+$resultID = mysqli_query($connection,"SELECT name FROM users WHERE username Like '".$_SESSION['username']."'"); 
+            $jfeta = mysqli_fetch_assoc($resultID);
+            $name = $jfeta['name'];
+            $_SESSION['name'] = $name;
+ 
 // If session variable is not set it will redirect to login page
 if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
   header("location: index.php");
   exit;
 }
+
+    // $resultAttachmentID=mysqli_query($connection,"SELECT * FROM attachments WHERE IDemail=".$row['SubjectID']."");
+   // $rowAttachmentID=mysqli_fetch_assoc($resultAttachmentID);
+
+
+
 ?>
+
+
 
 <html lang="en" >
 
@@ -36,13 +52,21 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['username']; ?></a>
+            <a class="navbar-brand" href="#">Welcome <?php echo $name;?></a>
+            <div class="profilePicIcon"> 
+                <?php  $resultID = mysqli_query($connection,"SELECT ProfilePic FROM users WHERE username Like '".$_SESSION['username']."'"); 
+              $jfeta = mysqli_fetch_assoc($resultID);
+              // print($jfeta['ProfilePic']);
+              //'<img src=uploads/'.$rowAttachmentID['Filename'].'>'
+             print('<img src="Profile Images/'.$jfeta['ProfilePic'].'" width=50 height=50>');  ?>
+
+            </div>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 
-                <li><a href="forget.php"><i class="fas fa-cog"></i> Settings</a></li>
-                <li><a href="Logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                
+                <li><a href="Logout.php" class="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
 
 
 
@@ -57,12 +81,14 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 <div class="container-fluid">
     <div class="row row-offcanvas row-offcanvas-left">
        <div class="col-xs-2 col-sm-1 sidebar-offcanvas" id="sidebar" role="navigation"> 
+
             <div class="sidebar-nav">
                 <ul class="nav">
-<li><a href="writeEmail.php"><i class="fas fa-pencil-alt"></i> Compose</a></li>
+<li><a href="compose.php"><i class="fas fa-pencil-alt"></i> Compose</a></li>
                     
                     <li><a href=#><i class="fas fa-inbox"></i> Inbox</a></li>
                     <li><a href="sentPage.php"><i class="fas fa-share-square"></i> Sent</a></li>
+                    <li><a href="settings.php"><i class="fas fa-cog"></i> Settings</a></li>
                    <!--<li><a href="#">Inbox</a></li>-->
                     
                 </ul>
@@ -125,6 +151,12 @@ $result = mysqli_query($connection, "SELECT * FROM emails Where ReceiverID=".$id
     print('<th>');
     print("Message");
     print('</th>');
+     print('<th>');
+    print("Attachment");
+    print('</th>');
+     print('<th>');
+    print("Delete");
+    print('</th>');
 
     print ('</tr>');
     
@@ -152,8 +184,15 @@ $result = mysqli_query($connection, "SELECT * FROM emails Where ReceiverID=".$id
     print('<td>');
    print substr($row['Message'],0,150);
     print('</td>');
-    print('</a>');
-    print ('</tr>');
+     $resultAttachmentID=mysqli_query($connection,"SELECT * FROM attachments WHERE IDemail=".$row['SubjectID']."");
+    $rowAttachmentID=mysqli_fetch_assoc($resultAttachmentID);
+      print('<td>');
+      print('<img src="uploads/'.$rowAttachmentID['Filename'].'"width=60 height=60>');      
+      print('</td>');
+      print('<td>');
+      print('<a href="delete.php?id='.$row['SubjectID'].'"><img src=deleteEmail.png width=60 height=60></a>');
+      print('</td>');
+      print ('</tr>');
   }
 
 mysqli_close($connection);
