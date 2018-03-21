@@ -1,5 +1,5 @@
 <?php
-$target_dir = "uploads/";
+$target_dir = "../ui/uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -52,19 +52,34 @@ $receiverid = $jfeta2['id'];
 $Subject=$_POST['subject'];
 $Message=$_POST['message'];
 
- $currentDate=date("Y-m-d");
+ $currentDate=date("Y-m-d" );
+$banned=array();
+array_push($banned,'bugger','bum', 'poo', 'fuck', 'pussy', 'shit', 'prick', 'cunt', 'anal', 'anus', 'arse', 'ass');
+array_push($banned,'ballsack', 'balls', 'bastard', 'bitch', 'biatch', 'bloody', 'blowjob', 'bollock', 'boner', 'boob');
+array_push($banned,'butt', 'buttplug', 'clitoris', 'cock', 'coon', 'crap', 'cunt', 'damn', 'dick', 'dildo', 'dyke');
+array_push($banned,'fag', 'feck', 'fellate', 'fellatio', 'felching', 'fuck', 'fudgepacker', 'flange', 'Goddamn', 'hell');
+array_push($banned,'homo', 'jerk', 'jizz', 'knobend', 'labia', 'muff', 'nigger', 'nigga', 'omg', 'penis', 'piss', 'poop');
+array_push($banned,'prick', 'pube', 'queer', 'scrotum', 'sex', 'slut', 'smegma', 'spunk', 'tit', 'tosser', 'turd', 'twat');
+array_push($banned,'vagina', 'wank', 'whore');
 
- $banned = array('poo', 'fuck'); // Add more
-//foreach ($banned as $word):
- // if (strpos($Message, $word) !== false) die('Contains banned word');
- //   else
- //   mysqli_query($connect,"INSERT INTO emails (Subject, Message,Date,ReceiverID,SenderID)
- // VALUES ('$Subject','$Message','$currentDate','$receiverid','$id')");
-//endforeach;
+$arr = explode(' ', $Message);
+
+foreach($arr as $key => $word)
+{
+    $word = str_replace('.', '', strip_tags($word));
+    if(in_array($word, $banned))
+    {
+        $arr[$key] = '*****';
+    }
+}
+
+$output = implode(' ', $arr);
+//echo $output;
+
   if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
     mysqli_query($connect,"INSERT INTO emails (Subject, Message,Date,ReceiverID,SenderID)
-    VALUES ('$Subject','$Message','$currentDate','$receiverid','$id')");
+    VALUES ('$Subject','$output','$currentDate','$receiverid','$id')");
 
 // if everything is ok, try to upload file
 } else {
