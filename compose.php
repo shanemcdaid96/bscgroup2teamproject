@@ -2,6 +2,8 @@
 // Initialize the session
 session_start();
  
+
+
 $connection = mysqli_connect("92.222.96.254","oliver","Opert213");
 mysqli_select_db($connection,"email");
 
@@ -9,8 +11,11 @@ $resultID = mysqli_query($connection,"SELECT name FROM users WHERE username Like
             $jfeta = mysqli_fetch_assoc($resultID);
             $name = $jfeta['name'];
             $_SESSION['name'] = $name;
+
  
 // If session variable is not set it will redirect to login page
+
+
 
 
 if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
@@ -49,7 +54,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
           <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
             <i class="fa fa-bars"></i>
           </a>
-          <a href="#" class="nav-brand" data-toggle="fullscreen">Bsafe Email</a>
+          <a href="#" class="nav-brand">Bsafe Email</a>
           <a class="btn btn-link visible-xs" data-toggle="class:show" data-target=".nav-user">
             <i class="fa fa-comment-o"></i>
           </a>
@@ -58,9 +63,9 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
           <!-- user -->
           <div class="bg-success nav-user hidden-xs pos-rlt">
             <div class="nav-avatar pos-rlt">
-            <h4 style="float: right; text-align: center;"><?php echo $name;?></h3>
+           <center>
               <a href="#" class="thumb-sm avatar animated rollIn" data-toggle="dropdown">
-                <?php  $resultID = mysqli_query($connection,"SELECT ProfilePic FROM users WHERE username Like '".$_SESSION['username']."'"); 
+               <?php  $resultID = mysqli_query($connection,"SELECT ProfilePic FROM users WHERE username Like '".$_SESSION['username']."'"); 
               $jfeta = mysqli_fetch_assoc($resultID);
               // print($jfeta['ProfilePic']);
               //'<img src=uploads/'.$rowAttachmentID['Filename'].'>'
@@ -68,14 +73,23 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 
               </a>
 
-              
+              </center>
             </div>
 
           </div>
           <!-- / user -->
+
           <!-- nav -->
-          <nav class="nav-primary hidden-xs">
+
+          <nav class="nav-primary hidden-xs" >
             <ul class="nav">
+
+                <li>
+                <a>
+                <i></i>        
+                <center><span> <h4><?php echo $name;?></h4></span></center>
+                </a>
+              </li>
               <li class="">
                 <a href="inbox.php">
                 <i class="fas fa-inbox"></i>        
@@ -97,6 +111,18 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 </a>
               </li>
 
+               <li class="">
+                <a href="grades.php">
+                  <i class="fas fa-graduation-cap"></i>
+                  <span>My Grades</span>
+                </a>
+              </li>
+                <li class="">
+                <a href="lessons.php">
+                  <i class="fas fa-book"></i>
+                  <span>Lesson Plans</span>
+                </a>
+              </li>
               <li class="">
                 <a href="settings.php">
                   <i class="fas fa-cogs"></i>
@@ -109,13 +135,9 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
           <!-- / nav -->
 
         </section>
-        <footer class="footer bg-gradient hidden-xs">
-
-          <a href="LOGOUT" data-toggle="ajaxModal" class="btn btn-sm btn-link m-r-n-xs pull-right">
+        <footer class="footer">
+         <a href="logout.php" class="btn btn-sm btn-link m-r-n-xs pull-right">
             <i class="fa fa-power-off"></i><span> Logout</span>
-          </a>
-          <a href="#nav" data-toggle="class:nav-vertical" class="btn btn-sm btn-link m-l-n-sm">
-            <i class="fa fa-bars"></i>
           </a>
         </footer>
       </section>
@@ -123,14 +145,34 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     <!-- /.aside -->
     <!-- .vbox -->
     <section id="content">
+
+<!--       <?php $result2 = mysqli_query($connection, "SELECT username FROM users Where reciverId=".$row['SenderID']."");
+    $row2=mysqli_fetch_array($result2);
+    ?>  -->
+
 <div id="compose" style="margin-left: 25px; margin-top: 50px;">
 <form action="insert.php" method="post" enctype="multipart/form-data">
     <h3>To:</h3>
-    <input type="text" name="receiver"><input class="w-input-email"  placeholder="@bsafe-email.com" readonly>  
+
+    <!-- Takes value of username to populate To field -->
+    <?php
+      
+   if(isset($_GET['ReceiverID'])){
+     $id = $_GET['ReceiverID'];
+$receiver = mysqli_query($connection,"SELECT name FROM users WHERE id = '$id'");
+  $jfeta2 = mysqli_fetch_assoc($receiver);
+            $receiver = $jfeta2['name'];
+    print('<input type="text" name="receiver" value="'.$receiver.'">');
+    }
+    else{  
+   print('<input type="text" name="receiver">');
+    }
+    ?>    
+    <input class="w-input-email"  placeholder="@bsafe-email.com" readonly>  
     <h3>Subject:</h3>
     <input type="text" name="subject">
     <h3>Message:</h3>
-    <textarea rows="20" cols="50" name="message"></textarea>
+    <textarea rows="20" cols="80" name="message"></textarea>
     <br>
     <input type="file" name="fileToUpload" id="fileToUpload">
     <br>
