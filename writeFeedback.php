@@ -22,10 +22,12 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
    // $rowAttachmentID=mysqli_fetch_assoc($resultAttachmentID);
 ?>
 
+
+
 <html lang="en">
 <head>
   
-  <title>Bsafe Email | Lessons</title>
+  <title>Bsafe Email | Give Feedback</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -35,6 +37,8 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
   <link rel="stylesheet" href="../css/plugin.css" type="text/css" />
   <link rel="stylesheet" href="../css/app.css" type="text/css" />
   <link rel="stylesheet" type="text/css" href="../css/table.css">
+
+
 </head>
 <body>
   <section class="hbox stretch">
@@ -77,6 +81,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
           <!-- / user -->
 
           <!-- nav -->
+
           <nav class="nav-primary hidden-xs" >
             <ul class="nav">
 
@@ -121,14 +126,14 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 </a>
               </li>
 
-                <li class="">
+                <li class="active">
                 <a href="grades.php">
                 <i class="fas fa-comment"></i>        
                 <span>Feedback</span>
                 </a>
               </li>
 
-                <li class="active">
+                <li class="">
                 <a href="lessons.php">
                 <i class="fas fa-graduation-cap"></i>        
                 <span>Lessons</span>
@@ -158,43 +163,28 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     <!-- /.aside -->
     <!-- .vbox -->
     <section id="content">
-
       <div id="settings" style="margin-left: 25px; margin-top: 50px;">
-<h3>View or upload lesson plans:</h3>
-    <?php
-     $connection = mysqli_connect("92.222.96.254","oliver","Opert213");
-      mysqli_select_db($connection,"email");
-
-print('<ol>');
-
-$result = mysqli_query($connection, "SELECT * FROM  lessons Order by LessonID");
-
-
-    while($row=mysqli_fetch_array($result)){
-
-     print('<li><a href="../Lessons/'.$row['LessonName'].'">'.$row['LessonName'].'</a></li>');
-          print('<br>');
-     
-  }
-
-mysqli_close($connection);
-
-print('</ol>');
-print('<form action="copyFile.php" method="post" enctype="multipart/form-data">');
-print('<input type="file" name="fileToUpload" id="fileToUpload">');
-    print('<br>');
-    print('<br>');
-    print('<input type="submit">');
-
-print('</form>');
-
-    ?>
+        <form action="insertFeedback.php" method="post">
+    <h3>Student:</h3>
+    <input type="text" name="receiver"><input class="w-input-email"  placeholder="@bsafe-email.com" readonly>  
+    <h3>Subject:</h3>
+    <input type="text" name="subject">
+    <h3>Feedback:</h3>
+    <textarea rows="20" cols="50" name="message"></textarea>
+    <br>
+    <br>
+    <h3>Grade:</h3>
+    <input type="number" name="grade" min="0" max="100">
+    <br>
+    <br>
+    <input type="submit">
+</form>
 </div>
-<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+      <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
     </section>
     <!-- /.vbox -->
   </section>
-  <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
   <!-- Bootstrap -->
   <script src="js/bootstrap.js"></script>
   <!-- Sparkline Chart -->
@@ -207,4 +197,4 @@ print('</form>');
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>  
 </body>
-</html>                          
+</html>

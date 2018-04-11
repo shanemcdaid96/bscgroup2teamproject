@@ -2,6 +2,8 @@
 // Initialize the session
 session_start();
  
+
+
 $connection = mysqli_connect("92.222.96.254","oliver","Opert213");
 mysqli_select_db($connection,"email");
 
@@ -9,8 +11,11 @@ $resultID = mysqli_query($connection,"SELECT name FROM users WHERE username Like
             $jfeta = mysqli_fetch_assoc($resultID);
             $name = $jfeta['name'];
             $_SESSION['name'] = $name;
+
  
 // If session variable is not set it will redirect to login page
+
+
 
 
 if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
@@ -22,10 +27,12 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
    // $rowAttachmentID=mysqli_fetch_assoc($resultAttachmentID);
 ?>
 
+
+
 <html lang="en">
 <head>
   
-  <title>Bsafe Email | Lessons</title>
+  <title>Bsafe Email | Compose </title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -35,6 +42,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
   <link rel="stylesheet" href="../css/plugin.css" type="text/css" />
   <link rel="stylesheet" href="../css/app.css" type="text/css" />
   <link rel="stylesheet" type="text/css" href="../css/table.css">
+
 </head>
 <body>
   <section class="hbox stretch">
@@ -42,15 +50,9 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     <aside class="bg-primary aside-sm" id="nav">
       <section class="vbox">
         <header class="dker nav-bar nav-bar-fixed-top">
-          <a class="btn btn-link visible-xs"  data-target="#nav">
+          <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
             <i class="fa fa-bars"></i>
           </a>
-          <?php  $resultID = mysqli_query($connection,"SELECT BackgroundImg FROM users WHERE username Like '".$_SESSION['username']."'"); 
-              $jfeta = mysqli_fetch_assoc($resultID);
-              // print($jfeta['ProfilePic']);
-              //'<img src=uploads/'.$rowAttachmentID['Filename'].'>'
-             $bg = ('<img src="../BackgroundImages/'.$jfeta['BackgroundImg'].'" width=50 height=50>');  ?>
-
           <a href="#" class="nav-brand">Teacher</a>
           <a class="btn btn-link visible-xs" data-toggle="class:show" data-target=".nav-user">
             <i class="fa fa-comment-o"></i>
@@ -66,7 +68,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
               $jfeta = mysqli_fetch_assoc($resultID);
               // print($jfeta['ProfilePic']);
               //'<img src=uploads/'.$rowAttachmentID['Filename'].'>'
-             print('<img src="../Profile Images/'.$jfeta['ProfilePic'].'" width=100 height=75>');  ?>
+             print('<img src="../Profile Images/'.$jfeta['ProfilePic'].'" width=75 height=75>');  ?>
 
               </a>
 
@@ -76,7 +78,9 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
           </div>
           <!-- / user -->
 
-          <!-- nav -->
+         
+                  <!-- nav -->
+
           <nav class="nav-primary hidden-xs" >
             <ul class="nav">
 
@@ -114,7 +118,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 </a>
               </li>
 
-                <li class="">
+                <li class="active">
                 <a href="monitor.php">
                 <i class="fas fa-eye"></i>        
                 <span>Monitor</span>
@@ -128,7 +132,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 </a>
               </li>
 
-                <li class="active">
+                <li class="">
                 <a href="lessons.php">
                 <i class="fas fa-graduation-cap"></i>        
                 <span>Lessons</span>
@@ -158,39 +162,43 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     <!-- /.aside -->
     <!-- .vbox -->
     <section id="content">
-
+<script src="monitor.js"></script>
       <div id="settings" style="margin-left: 25px; margin-top: 50px;">
-<h3>View or upload lesson plans:</h3>
-    <?php
-     $connection = mysqli_connect("92.222.96.254","oliver","Opert213");
-      mysqli_select_db($connection,"email");
-
-print('<ol>');
-
-$result = mysqli_query($connection, "SELECT * FROM  lessons Order by LessonID");
 
 
-    while($row=mysqli_fetch_array($result)){
+<?php
+$connect = mysqli_connect("92.222.96.254","oliver","Opert213","email");
+$result=mysqli_query($connect,"select *  from users");
 
-     print('<li><a href="../Lessons/'.$row['LessonName'].'">'.$row['LessonName'].'</a></li>');
-          print('<br>');
-     
-  }
 
-mysqli_close($connection);
+          print('User:<select name="user" id="userSelected">');
+          print('<option value="AllUsers">All </option>');
 
-print('</ol>');
-print('<form action="copyFile.php" method="post" enctype="multipart/form-data">');
-print('<input type="file" name="fileToUpload" id="fileToUpload">');
-    print('<br>');
-    print('<br>');
-    print('<input type="submit">');
 
-print('</form>');
+          while($row=mysqli_fetch_array($result))
 
-    ?>
+          {
+
+          print("<option value='".$row['id']."'>".$row['username']. "</option>");
+
+          }
+
+          mysqli_close($connection);
+
+          print('</select>');
+
+          print('<input id="find" type="submit" value="Find">');
+
+
+
+?>
 </div>
-<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+<hr>
+<div id="myDiv">
+</div>
+<hr>
+
+ <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
     </section>
     <!-- /.vbox -->
   </section>
@@ -207,4 +215,4 @@ print('</form>');
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>  
 </body>
-</html>                          
+</html>
