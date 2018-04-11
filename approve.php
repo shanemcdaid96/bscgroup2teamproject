@@ -1,4 +1,10 @@
 <?php
+
+if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+  header("location: ../index.php");
+  exit;
+}
+
 $id = $_GET['id'];
 
 $connection = mysqli_connect("92.222.96.254","oliver","Opert213");
