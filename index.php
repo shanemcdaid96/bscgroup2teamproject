@@ -1,11 +1,12 @@
 <?php
 // Include config file
 require_once 'Databaseinfo.php';
+session_start();
+ if(isset($_SESSION["username"]))  
+ {  
+      header("location:inbox.php");  
+ } 
 
-// if(isset($_SESSION['username']) || empty($_SESSION['username'])){
-//   header("location: loggedin.php");
-//   exit;
-// }
  
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -57,7 +58,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION['username'] = $username;  
                             $_SESSION['id'] = $id;  
                             $_SESSION['name'] = $name;  
-                            header("location: loggedin.php");
+                            $_SESSION['role'] =2;
+                            header("location: inbox.php");
+                             if(isset($_SESSION["username"]))  
+                              {  
+                              header("location:inbox.php");  
+                                } 
                         } else{
                             // Display an error message if password is not valid
                             $password_err = 'The password you entered was not valid.';
@@ -71,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo "Oops! Something went wrong. Please try again later.";
             }
         }
-        
+
         // Close statement
         mysqli_stmt_close($stmt);
     }
@@ -104,6 +110,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <div class="w-col w-col-3 w-col-medium-3"></div>
     <div class="column w-col w-col-6 w-col-medium-6">
       <div class="div-block">
+        <center><h2>Student Login</h2></center>
         <div class="w-form">
           <form id="email-form" name="email-form" data-name="Email Form" class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
@@ -112,20 +119,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             <input type="password" class="w-input" maxlength="256" name="password" data-name="password" placeholder="Password" id="password" required="">
 
-            <input type="submit" value="Login" data-wait="Please wait..." class="submit-button w-button">
+            <input type="submit" value="Login" data-wait="Please wait..." class="submit-button w-button"><br>
 
-            <p style="text-align:center">Dont have an account?<a style="text-align:center" href="register.php">Register</a></p>
+            <p style="text-align:center">Don't have a student account? <a style="text-align:center" href="register.php">Register Here!</a></p>
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>"></div>
-
-            <center><button id="myBtn" >Forgot Password</button></center>
+            <center><p><a href="index1.php">Teacher Login / Register</a></p></center>
             <div id="myModal" class="modal">
 
 
-  <div class="modal-content">
+ <!--  <div class="modal-content">
     <span class="close">&times;</span>
     <p>To reset your password contact the teacher</p>
-  </div>
-
+  </div> -->
 </div>
 
 
